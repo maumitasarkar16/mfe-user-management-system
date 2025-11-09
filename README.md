@@ -41,5 +41,151 @@ For UserDetails MFE-
 shell - dashboard 
    1.npm run dev
 
+   ------------------------------------------------------------------------------------------------------
+   INSTALLATION PROCESS
+
+
+created a main project folder then ran git init
+under it created 3 folders
+updated node.js
+
+inside each ran 
+npm init -y
+npm create vite@latest . -- --template react-ts
+npm install sass
+npm install antd
+npm install @ant-design/icons
+npm install -D @originjs/vite-plugin-federation  ( to check version - npm list @originjs/vite-plugin-federation)
+
+
+----------------------------------------------
+add tsconfig.app.json and tsconfig.node.json "incremental": true, 
+
+remove the line from tsconfig.app.json and tsconfig.node.json => erasableSyntaxOnly 
+
+remove the line from tsconfig.app.json and tsconfig.node.json => noUncheckedSideEffectImports
+
+change tsconfig.node.json => "target": "esnext"
+
+------------------------------------------------
+
+
+//dashboard-shell vite.config.ts:
+
+federation({
+  remotes: {
+    remoteUserList: 'http://localhost:5001/assets/remoteEntry.js',
+    remoteUserDetails: 'http://localhost:5002/assets/remoteEntry.js',
+  },
+})
+
+====================================
+
+Remote 1 — User List App
+
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { federation } from '@module-federation/vite';
+
+export default defineConfig({
+  plugins: [
+    react(),
+    federation({
+      name: remoteUserList: 
+      filename: 'remoteEntry.js',
+      exposes: {
+        './UserList': './src/components/UserList.tsx',
+      },
+      shared: ['react', 'react-dom', 'react-router-dom'],
+    }),
+  ],
+server: {
+    port: 5001,
+  },
+});
+
+==========================================
+
+Remote 2 — User Details App
+
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { federation } from '@module-federation/vite';
+
+export default defineConfig({
+  plugins: [
+    react(),
+    federation({
+      name: 'remoteUserDetails', 
+      filename: 'remoteEntry.js',
+      exposes: {
+        './UserDetails': './src/components/UserDetails.tsx',
+      },
+      shared: ['react', 'react-dom', 'react-router-dom'],
+    }),
+  ],
+server: {
+    port: 5002,
+  },
+});
+
+=============================================
+
+//dashboard-shell/src/App.tsx
+const UserList = React.lazy(() => import('remoteUserList/UserList'));
+const UserDetails = React.lazy(() => import('remoteUserDetails/UserDetails'));
+From the remote app named remoteUserList (running on port 5001), import the exposed module ./UserList.
+
+
+========================================
+
+dashboard-shell/src/vite-env.d.ts, add:
+
+declare module 'remoteUserList/UserList';
+declare module 'remoteUserDetails/UserDetails';
+
+------------------------------------------------------------------------------
+
+npm install react-router-dom
+npm install --save-dev @types/react-router-dom  
+in all 3 folders
+
+---------------------------------------------
+
+ make sure
+ remoteUserList: 'http://localhost:5001/assets/remoteEntry.js' in vite-onfig.json in shell-dashboard
+ server: {
+  port: 5001,
+  cors: true
+} in remote app
+
+
+------------------------------------------------------------------------------------------------------------
+
+Communication
+
+UserList dispatches a custom event:
+window.dispatchEvent(new CustomEvent("userSelected", { detail: userId }));
+
+
+Shell listens to the event:
+useEffect(() => {
+        const handleUserSelected = (event: CustomEvent) => {
+            const userId  = event.detail;
+            navigate(`/users/${userId }`);
+        }
+        window.addEventListener("userSelected", handleUserSelected as EventListener)
+        return () => {
+            window.removeEventListener("userSelected", handleUserSelected as EventListener)
+        }
+    }, [navigate])
+
+
+  ---------------------------------------------------------------------------------
+Test Library
+
+npm install --save-dev @types/jest
+npm install --save-dev jest @testing-library/react @testing-library/jest-dom @testing-library/user-event
+npm install --save-dev ts-jest jest-environment-jsdom
 
 
