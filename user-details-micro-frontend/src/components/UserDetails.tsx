@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { Input, Button, Card } from "antd";
+import "./styles/UserDetails.scss"
 
 export interface User {
     id: number;
@@ -134,14 +136,14 @@ const UserDetails = ({ userId }: UserDetailsProps) => {
 
     // console.log("userDetails---", userDetails)
     return (
-        <>
+        <Card className="user-details-card">
             <h1>USER DETAILS</h1>
             <p><label>ID:</label> {userDetails.id}</p>
             {(["name", "username", "email", "phone", "website"] as EditableUserFields[]).map((field) => (
                 <div key={field}>
                     <label>{field.charAt(0).toUpperCase() + field.slice(1)} : </label>
                     {isEdit ? (
-                        <input
+                        <Input
                             value={(editUserDetails)[field]}
                             onChange={(e) => handleUserChange(field, e.target.value)}
                         />
@@ -156,7 +158,7 @@ const UserDetails = ({ userId }: UserDetailsProps) => {
                 <div key={field}>
                     <label>{field.charAt(0).toUpperCase() + field.slice(1)} : </label>
                     {isEdit ? (
-                        <input
+                        <Input
                             value={(editUserDetails.address)[field]}
                             onChange={(e) => handleAddressChange(field, e.target.value)}
                         />
@@ -171,7 +173,7 @@ const UserDetails = ({ userId }: UserDetailsProps) => {
                 <div key={field}>
                     <label>{field.charAt(0).toUpperCase() + field.slice(1)} : </label>
                     {isEdit ? (
-                        <input
+                        <Input
                             value={(editUserDetails.address.geo)[field]}
                             onChange={(e) => handleGeoChange(field, e.target.value)}
                         />
@@ -186,7 +188,7 @@ const UserDetails = ({ userId }: UserDetailsProps) => {
                 <div key={field}>
                     <label>{field.charAt(0).toUpperCase() + field.slice(1)} : </label>
                     {isEdit ? (
-                        <input
+                        <Input
                             value={(editUserDetails.company)[field]}
                             onChange={(e) => handleCompanyChange(field, e.target.value)}
                         />
@@ -201,11 +203,11 @@ const UserDetails = ({ userId }: UserDetailsProps) => {
             <div>
                 {
                     isEdit ?
-                        (<><button onClick={handleSave}>Save</button> | <button onClick={() => setIsEdit(false)}>Cancel</button></>) :
-                        <button onClick={() => setIsEdit(true)}>Edit</button>
+                        (<><Button style={{ marginTop: 10 }} type="primary" onClick={handleSave}>Save</Button> | <Button style={{ marginTop: 10 }} type="default" onClick={() => setIsEdit(false)}>Cancel</Button></>) :
+                        <Button type="primary" onClick={() => setIsEdit(true)}>Edit</Button>
                 }
             </div>
-        </>
+        </Card>
     )
 
 }

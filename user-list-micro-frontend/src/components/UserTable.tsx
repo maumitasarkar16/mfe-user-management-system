@@ -1,5 +1,6 @@
 import React from "react";
 import type { User } from "../interface/User";
+import { Button, Card } from "antd";
 
 interface UserTableProps {
     users: User[];
@@ -21,7 +22,7 @@ const UserTable : React.FC<UserTableProps> = React.memo(({users, currentPage, to
     }
 
     return (
-        <>
+        <Card className="ant-card">
              <table>
                 <thead>
                     <tr>
@@ -40,7 +41,7 @@ const UserTable : React.FC<UserTableProps> = React.memo(({users, currentPage, to
                                 <td>{item?.name}</td>
                                 <td>{item?.username}</td>
                                 <td>{item?.email}</td>
-                                <td><button onClick={() => handleUserDetails(item?.id)}>User Details</button></td>
+                                <td><Button type="primary" onClick={() => handleUserDetails(item?.id)}>User Details</Button></td>
                             </tr>
                         )
                     })}
@@ -52,19 +53,19 @@ const UserTable : React.FC<UserTableProps> = React.memo(({users, currentPage, to
             {/* pagination controls */}
 
             <div>
-                <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>Prev</button>
+                <Button type="primary" onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>Prev</Button>
 
                 {
                     pageNum.map((page) => {
                         return (
-                            <button key={page} onClick={() => onPageChange(page)}>{page}</button>
+                            <Button type="primary" key={page} onClick={() => onPageChange(page)}>{page}</Button>
                         )
                     })
                 }
 
-                <button onClick={() => onPageChange(currentPage + 1)} disabled={currentPage === totalPages}>Next</button>
+                <Button type="primary" onClick={() => onPageChange(currentPage + 1)} disabled={currentPage === totalPages}>Next</Button>
             </div>
-        </>
+        </Card>
     )
 })
 

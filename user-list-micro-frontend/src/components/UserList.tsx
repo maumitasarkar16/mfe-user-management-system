@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useUsers } from "../hooks/useUsers";
 import SearchBar from "./SearchBar";
 import UserTable from "./UserTable";
+import  "./styles/User.scss"
 
 const PAGE_SIZE = Number(import.meta.env.VITE_PAGE_SIZE)
 

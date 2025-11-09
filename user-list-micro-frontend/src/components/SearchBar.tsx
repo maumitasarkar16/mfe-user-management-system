@@ -1,4 +1,5 @@
 import React from "react"
+import { Input } from "antd";
 
 interface SearchBarProps {
     searchQuery : string,
@@ -7,9 +8,9 @@ interface SearchBarProps {
 
 const SearchBar : React.FC<SearchBarProps> = React.memo(({searchQuery, onSearch}) => {
     return(
-        <div>
-            <span>Search by Name or Username: </span>  
-            <span><input type="text" value={searchQuery} onChange={(e) => onSearch(e.target.value)} /></span>
+        <div className="ant-table-wrapper">
+            <span>Search by Name or Username : </span>  
+            <span><Input style={{ width: 700 }} value={searchQuery} onChange={(e) => onSearch(e.target.value)} /></span>
           </div>
     )
 })
