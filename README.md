@@ -44,12 +44,19 @@ change tsconfig.node.json => "target": "esnext"
 7. Restart shell-dashboard after remote is running
 
 ------------------------------------------------
-UserList - 
-npm run build , 
-npx serve dist -l 5001 , 
-http-server dist -p 5001 -c-1 --cors
+IMP ===================================================To run the servers~~~~~~~
+For UserList MFE- 
+   npm run build , 
+   npx serve dist -l 5001 , 
+   http-server dist -p 5001 -c-1 --cors
 
-shell - dashboard = npm run dev
+For UserDetails MFE- 
+   npm run build , 
+   npx serve dist -l 5002 , 
+   http-server dist -p 5002 -c-1 --cors   
+
+shell - dashboard 
+   npm run dev
 
 -------------------------------------------------------------------------------------
 
