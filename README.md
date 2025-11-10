@@ -41,6 +41,8 @@ Save in localstorage
 
 -------------------------------------------------------------------------------------------------
 
+Deployment to Vercel: https://mfe-user-management-system-erwz8peji-maumita-sarkars-projects.vercel.app/
+
 ========================================= **To run the servers**=======================================
 For UserList MFE- 
    1.npm run build , 
