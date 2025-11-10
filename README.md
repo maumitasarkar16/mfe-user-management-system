@@ -2,32 +2,46 @@
 React Microfrontend User Management System - GIC assignment
 
 ---------------------------------------------------------------------------------------------------------
+This repository demonstrates a Micro-Frontend (MFE) architecture using Vite + React 18 + Module Federation. The project includes three micro apps:
 
-This repository demonstrates a Micro-Frontend (MFE) architecture using Vite + React 18 + Module Federation. The project includes:
-
-Shell: Main container with navigation
-UserList MFE: Displays paginated user list with search
-UserDetails MFE: Displays selected user details
+Shell: Main container with navigation. The main host application.
+UserList MFE: Displays paginated user list with search.
+UserDetails MFE: Displays selected user details. Shows detailed information of a selected user.
 --------------------------------------------------------------------------------------------
- 
+
+**Tech Stack**
+Frontend Framework: React 18 + TypeScript
+Bundler: Vite
+Module Federation Plugin: @originjs/vite-plugin-federation
+Routing: React Router v6
+Styling: SCSS Modules
+State Management: React hooks and props drilling (lightweight communication)
+Inter-app Communication: Local Storage + Custom Events
+Tooling: ESLint + Prettier for code quality
+
+---------------------------------------------------------------------------------------
+
 Shell Loads UserList MFE and UserDetails MFE dynamically
 Listens for userSelected event from UserList to render UserDetails
 Provides common navigation
+
 ----------------------------------------------------------------------------------------
-UserList MFE Fetches users from API
+**UserList MFE Fetches users from API**
 Supports search and debounced filtering
 Implements pagination
 Dispatches userSelected event on user click
+
 ---------------------------------------------------------------------------------------------
 
-UserDetails MFE Listens for userSelected event
+**UserDetails MFE Listens for userSelected event**
 Fetches user details by ID
 Displays detailed information
 edit Form
 Save in localstorage
+
 -------------------------------------------------------------------------------------------------
 
- ===================================================To run the servers==============================================================================
+========================================= **To run the servers**=======================================
 For UserList MFE- 
    1.npm run build , 
    2.npx serve dist -l 5001 , 
@@ -41,8 +55,8 @@ For UserDetails MFE-
 shell - dashboard 
    1.npm run dev
 
-   ------------------------------------------------------------------------------------------------------
-   INSTALLATION PROCESS
+------------------------------------------------------------------------------------------------------
+ **INSTALLATION PROCESS**
 
 
 created a main project folder then ran git init
@@ -182,7 +196,7 @@ useEffect(() => {
 
 
   ---------------------------------------------------------------------------------
-Test Library
+**Test Library**
 
 npm install --save-dev @types/jest
 npm install --save-dev jest @testing-library/react @testing-library/jest-dom @testing-library/user-event
